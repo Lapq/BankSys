@@ -10,8 +10,8 @@
 	<property name="mainClass" value="banksys.atm.ATM24H" />
 
 	<path id="buildClasspath">
-		<pathelement location="dependencies/junit-4.12.jar" />
-		<pathelement location="dependencies/hamcrest-core-1.3.jar" />
+		<pathelement location="dependencies/org.junit_4.12.0.v201504281640/junit.jar" />
+		<pathelement location="dependencies/org.hamcrest.core_1.3.0.v201303031735.jar" />
 		<!--pathelement location="dependencies/xstream-1.4.8.jar" />
 		<pathelement location="dependencies/xpp3_min-1.1.4c.jar" />
 		<pathelement location="dependencies/xmlpull-1.1.3.1.jar" /-->
