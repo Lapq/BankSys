@@ -10,8 +10,8 @@
     <property name="target" value="1.7"/>
     <property name="source" value="1.7"/>
     <path id="JUnit 4.libraryclasspath">
-        <pathelement location="../Users/Lamartine/.p2/pool/plugins/org.junit_4.12.0.v201504281640/junit.jar"/>
-        <pathelement location="../Users/Lamartine/.p2/pool/plugins/org.hamcrest.core_1.3.0.v201303031735.jar"/>
+        <pathelement location="./dependencies/org.junit_4.12.0.v201504281640/junit.jar"/>
+        <pathelement location="./dependencies/org.hamcrest.core_1.3.0.v201303031735.jar"/>
     </path>
     <path id="BankSys.classpath">
         <pathelement location="bin"/>
