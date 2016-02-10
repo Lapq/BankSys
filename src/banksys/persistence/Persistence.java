@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.thoughtworks.streamtream.XStream;
+import com.thoughtworks.xstream.XStream;
 
 import banksys.account.AbstractAccount;
 import banksys.persistence.exception.AccountCreationException;
