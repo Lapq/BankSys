@@ -140,7 +140,7 @@ public class Persistence implements IAccountRepository {
 	public void update(AbstractAccount account) throws FileNotFoundException {
 		List<AbstractAccount> list = null;
 		try {
-			list = ReadFile();
+			list = read();
 		}
 		catch (FileNotFoundException e) {
 			e.printStackTrace();

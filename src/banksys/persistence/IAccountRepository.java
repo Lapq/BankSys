@@ -1,5 +1,7 @@
 package banksys.persistence;
 
+import java.io.FileNotFoundException;
+
 import banksys.account.AbstractAccount;
 import banksys.persistence.exception.AccountCreationException;
 import banksys.persistence.exception.AccountDeletionException;
@@ -15,5 +17,7 @@ public interface IAccountRepository {
 
 	public AbstractAccount[] list();
 
-	public int mumberOfAccounts();
+	public int numberOfAccounts();
+	
+	public void update(AbstractAccount account) throws FileNotFoundException;
 }

@@ -1,5 +1,6 @@
 package banksys.persistence;
 
+import java.io.FileNotFoundException;
 import java.util.Vector;
 
 import banksys.account.AbstractAccount;
@@ -43,7 +44,7 @@ public class AccountVector implements IAccountRepository {
 		return list;
 	}
 
-	public int mumberOfAccounts() {
+	public int numberOfAccounts() {
 		return this.accounts.size();
 	}
 
@@ -66,5 +67,10 @@ public class AccountVector implements IAccountRepository {
 			}
 		}
 		return null;
+	}
+	
+	@Override
+	public void update(AbstractAccount account) throws FileNotFoundException{
+		//do nothing
 	}
 }
