@@ -19,7 +19,7 @@ public class Persistence implements IAccountRepository {
 
 	private File file;
 	
-	public AccountPersistence() throws IOException {
+	public Persistence() throws IOException {
 		file = new File("Accounts.xml");
 		
 		if (!file.exists()) {
