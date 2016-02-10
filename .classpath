@@ -7,8 +7,8 @@
 	
 <classpathentry kind="output" path="bin"/>
 </classpath>
-<classpathentry kind="lib" path="./lib/xstream-1.4.8.jar"/>
-	<classpathentry kind="lib" path="./lib/xmlpull-1.1.3.1.jar"/>
-	<classpathentry kind="lib" path="./lib/xpp3_min-1.1.4c.jar"/>
+<classpathentry kind="lib" path="C:/BankSys/lib/xstream-1.4.8.jar"/>
+	<classpathentry kind="lib" path="C:/BankSys/lib/xmlpull-1.1.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/BankSys/lib/xpp3_min-1.1.4c.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -8,24 +8,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.streamtream.XStream;
 
 import banksys.account.AbstractAccount;
 import banksys.persistence.exception.AccountCreationException;
 import banksys.persistence.exception.AccountDeletionException;
 import banksys.persistence.exception.AccountNotFoundException;
 
-public class AccountPersistence implements IAccountRepository {
+public class Persistence implements IAccountRepository {
 
 	private File file;
 	
 	public AccountPersistence() throws IOException {
-		file = new File("data.xml");
+		file = new File("Accounts.xml");
 		
 		if (!file.exists()) {
 			file.createNewFile();
-			XStream xs = new XStream();
-			xs.toXML(new ArrayList<AbstractAccount>(), new FileOutputStream(file));
+			XStream stream = new XStream();
+			stream.toXML(new ArrayList<AbstractAccount>(), new FileOutputStream(file));
 		}
 	}
 
@@ -34,7 +34,8 @@ public class AccountPersistence implements IAccountRepository {
 		List<AbstractAccount> list = null;
 		try {
 			list = read();
-		} catch (FileNotFoundException e1) {
+		}
+		catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
 		
@@ -47,7 +48,8 @@ public class AccountPersistence implements IAccountRepository {
 		
 		try {
 			write(list);
-		} catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
@@ -57,7 +59,8 @@ public class AccountPersistence implements IAccountRepository {
 		List<AbstractAccount> list = null;
 		try {
 			list = read();
-		} catch (FileNotFoundException e1) {
+		}
+		catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
 		
@@ -71,7 +74,8 @@ public class AccountPersistence implements IAccountRepository {
 		
 		try {
 			write(list);
-		} catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		
@@ -82,7 +86,8 @@ public class AccountPersistence implements IAccountRepository {
 		List<AbstractAccount> list = null;
 		try {
 			list = read();
-		} catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		
@@ -101,7 +106,8 @@ public class AccountPersistence implements IAccountRepository {
 		List<AbstractAccount> list = null;
 		try {
 			list = read();
-		} catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		
@@ -123,7 +129,8 @@ public class AccountPersistence implements IAccountRepository {
 		List<AbstractAccount> list = null;
 		try {
 			list = read();
-		} catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		return list.size();
@@ -132,8 +139,12 @@ public class AccountPersistence implements IAccountRepository {
 	@Override
 	public void update(AbstractAccount account) throws FileNotFoundException {
 		List<AbstractAccount> list = null;
-		
-		list = read();
+		try {
+			list = ReadFile();
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		if (!list.isEmpty()) {
 			for (AbstractAccount acc : list) {
@@ -150,9 +161,9 @@ public class AccountPersistence implements IAccountRepository {
 	@SuppressWarnings("unchecked")
 	private List<AbstractAccount> read() throws FileNotFoundException {
 		List<AbstractAccount> list = null;
-		XStream xs = new XStream();
+		XStream stream = new XStream();
 						
-		list = (List<AbstractAccount>) xs.fromXML(new FileReader(file));
+		list = (List<AbstractAccount>) stream.fromXML(new FileReader(file));
 		
 		if (list != null) {
 			return list;
@@ -163,8 +174,8 @@ public class AccountPersistence implements IAccountRepository {
 	}
 	
 	private void write(List<AbstractAccount> list) throws FileNotFoundException {
-		XStream xs = new XStream();
-		xs.toXML(list, new FileOutputStream(file));
+		XStream stream = new XStream();
+		stream.toXML(list, new FileOutputStream(file));
 	}
 	
 	private AbstractAccount search(String number, List<AbstractAccount> list) {
