@@ -10,6 +10,9 @@ import java.awt.Font;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Panel extends JPanel {
 	/**
@@ -17,11 +20,14 @@ public class Panel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField txtAutomatedTellerMachine;
-
+	private StartAction startAction;
+	private int flag;
 	/**
 	 * Create the panel.
 	 */
 	public Panel() {
+		flag = 0;
+		startAction = new StartAction();
 		setLayout(null);
 		
 		JTextArea txtrWelcomeTo = new JTextArea();
@@ -39,6 +45,24 @@ public class Panel extends JPanel {
 		txtAutomatedTellerMachine.setBounds(0, 199, 450, 41);
 		add(txtAutomatedTellerMachine);
 		txtAutomatedTellerMachine.setColumns(10);
+		
+		JButton btnStart = new JButton("Start");
+		btnStart.setBounds(167, 255, 89, 23);
+		btnStart.addActionListener(startAction);
+		add(btnStart);
 
+	}
+	
+	private class StartAction implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			flag = 1;
+		}
+	}
+	
+	public int getFlag(){
+		return flag;
 	}
 }

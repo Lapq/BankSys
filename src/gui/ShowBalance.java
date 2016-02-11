@@ -18,7 +18,7 @@ public class ShowBalance extends JPanel {
 	public ShowBalance() {
 		setLayout(null);
 		
-		JLabel lblOrdinaryAccountNumber = new JLabel("Ordinary account number:");
+		JLabel lblOrdinaryAccountNumber = new JLabel("Account number:");
 		lblOrdinaryAccountNumber.setHorizontalAlignment(SwingConstants.LEFT);
 		lblOrdinaryAccountNumber.setBounds(25, 58, 158, 19);
 		add(lblOrdinaryAccountNumber);

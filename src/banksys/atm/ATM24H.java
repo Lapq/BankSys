@@ -10,6 +10,14 @@ import banksys.account.TaxAccount;
 import banksys.control.BankController;
 import banksys.control.exception.BankTransactionException;
 import banksys.persistence.AccountVector;
+import gui.Panel;
+import gui.Panel2;
+import gui.Panel3;
+import gui.GenericNumberPanel;
+import gui.OriginDestination;
+import gui.Success;
+import gui.ShowBalance;
+import gui.GoodBye;
 
 public class ATM24H {
 
@@ -17,6 +25,7 @@ public class ATM24H {
 
 	public static void main(String[] args) {
 		BankController bank = new BankController(new AccountVector());
+		GenericNumberPanel gnp;
 		boolean loop = true;
 		while (loop) {
 			switch (mainMenu()) {
@@ -24,20 +33,32 @@ public class ATM24H {
 				AbstractAccount account = null;
 				switch (addAccountMenu()) {
 				case 1:
-					System.out.println("Enter the ordinary account number: ");
-					account = new OrdinaryAccount(scanner.next());
+					//System.out.println("Enter the ordinary account number: ");
+					//account = new OrdinaryAccount(scanner.next());
+					gnp = new GenericNumberPanel("Enter the ordinary account number");
+					gnp.setVisible(true);
+					if (gnp.getFlag()==0)	account = new OrdinaryAccount(gnp.getString());
 					break;
 				case 2:
-					System.out.println("Enter the special account number: ");
-					account = new SpecialAccount(scanner.next());
+					//System.out.println("Enter the special account number: ");
+					//account = new SpecialAccount(scanner.next());
+					gnp = new GenericNumberPanel("Enter the special account number");
+					gnp.setVisible(true);
+					account = new SpecialAccount(gnp.getString());
 					break;
 				case 3:
-					System.out.println("Enter the saving account number: ");
-					account = new SavingsAccount(scanner.next());
+					//System.out.println("Enter the saving account number: ");
+					//account = new SavingsAccount(scanner.next());
+					gnp = new GenericNumberPanel("Enter the savings account number");
+					gnp.setVisible(true);
+					account = new SavingsAccount(gnp.getString());
 					break;
 				case 4:
-					System.out.println("Enter the tax account number: ");
-					account = new TaxAccount(scanner.next());
+					//System.out.println("Enter the tax account number: ");
+					//account = new TaxAccount(scanner.next());
+					gnp = new GenericNumberPanel("Enter the Tax account number");
+					gnp.setVisible(true);
+					account = new TaxAccount(gnp.getString());
 					break;
 
 				default:
@@ -140,7 +161,15 @@ public class ATM24H {
 				break;
 
 			case 9:
-				System.out.print("Goodbye and have a nice day!!!");
+				//System.out.print("Goodbye and have a nice day!!!");
+				GoodBye goodbye = new GoodBye();
+				goodbye.setVisible(true);
+				try {
+					goodbye.wait(10);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				goodbye.setVisible(false);
 				loop = false;
 				break;
 
@@ -151,7 +180,7 @@ public class ATM24H {
 	}
 
 	private static int mainMenu() {
-		System.out.println("================================");
+	/*	System.out.println("================================");
 		System.out.println("Wellcome to the Our Bank");
 		System.out.println("Automated Teller Machine");
 		System.out.println("================================");
@@ -166,12 +195,18 @@ public class ATM24H {
 		System.out.println(" [9] Exit");
 		System.out.println("================================");
 		System.out.println("Enter the desired option: ");
-		return scanner.nextInt();
-
+		return scanner.nextInt();*/
+		
+		Panel panel = new Panel();
+		panel.setVisible(true);
+		if (panel.getFlag() == 1)	panel.setVisible(false);
+		Panel2 panel2 = new Panel2();
+		panel2.setVisible(true);
+		return panel2.getOption();
 	}
 
 	private static int addAccountMenu() {
-		System.out.println("================================");
+		/*System.out.println("================================");
 		System.out.println("Add New OrdinaryAccount");
 		System.out.println("================================");
 		System.out.println(" [1] Ordinary");
@@ -180,7 +215,11 @@ public class ATM24H {
 		System.out.println(" [4] Tax");
 		System.out.println("================================");
 		System.out.println("Enter the desired option: ");
-		return scanner.nextInt();
+		return scanner.nextInt();*/
+		
+		Panel3 panel3 = new Panel3();
+		panel3.setVisible(true);
+		return panel3.getOption();
 	}
 
 }
