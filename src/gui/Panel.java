@@ -7,49 +7,49 @@ import javax.swing.JPanel;
 //import com.jgoodies.forms.layout.RowSpec;
 //import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.Font;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JLabel;
 
 public class Panel extends JPanel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField txtAutomatedTellerMachine;
 	private StartAction startAction;
 	private int flag;
 	/**
 	 * Create the panel.
 	 */
 	public Panel() {
-		flag = 0;
 		startAction = new StartAction();
 		setLayout(null);
 		
-		JTextArea txtrWelcomeTo = new JTextArea();
-		txtrWelcomeTo.setFont(new Font("Monospaced", Font.BOLD, 74));
-		txtrWelcomeTo.setText("WELCOME TO "
-				+ "OUR BANK");
-		txtrWelcomeTo.setBounds(0, 0, 450, 188);
-		txtrWelcomeTo.setLineWrap(true);
-		add(txtrWelcomeTo);
-		
-		txtAutomatedTellerMachine = new JTextField();
-		txtAutomatedTellerMachine.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		txtAutomatedTellerMachine.setHorizontalAlignment(SwingConstants.CENTER);
-		txtAutomatedTellerMachine.setText("Automated Teller Machine");
-		txtAutomatedTellerMachine.setBounds(0, 199, 450, 41);
-		add(txtAutomatedTellerMachine);
-		txtAutomatedTellerMachine.setColumns(10);
-		
 		JButton btnStart = new JButton("Start");
-		btnStart.setBounds(167, 255, 89, 23);
+		btnStart.setBounds(178, 255, 89, 23);
 		btnStart.addActionListener(startAction);
 		add(btnStart);
+		
+		JLabel lblWelcomeTo = new JLabel("WELCOME TO");
+		lblWelcomeTo.setFont(new Font("Arial", Font.BOLD, 48));
+		lblWelcomeTo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWelcomeTo.setBounds(10, 11, 430, 87);
+		add(lblWelcomeTo);
+		
+		JLabel lblOurBank = new JLabel("OUR BANK");
+		lblOurBank.setFont(new Font("Arial", Font.BOLD, 47));
+		lblOurBank.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOurBank.setBounds(10, 109, 430, 59);
+		add(lblOurBank);
+		
+		JLabel lblAutomatedTellerMachine = new JLabel("Automated Teller Machine");
+		lblAutomatedTellerMachine.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblAutomatedTellerMachine.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAutomatedTellerMachine.setBounds(10, 179, 430, 51);
+		add(lblAutomatedTellerMachine);
+		System.out.println("teste");
 
 	}
 	

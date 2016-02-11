@@ -18,16 +18,21 @@ import gui.OriginDestination;
 import gui.Success;
 import gui.ShowBalance;
 import gui.GoodBye;
+import gui.SystemWindow;
 
 public class ATM24H {
 
 	private static Scanner scanner = new Scanner(System.in);
-
+	private static SystemWindow window;
+	
 	public static void main(String[] args) {
 		BankController bank = new BankController(new AccountVector());
 		GenericNumberPanel gnp;
+		window = new SystemWindow();
+		window.setVisible(true);
+
 		boolean loop = true;
-		while (loop) {
+		//while (loop) {
 			switch (mainMenu()) {
 			case 1:
 				AbstractAccount account = null;
@@ -37,6 +42,8 @@ public class ATM24H {
 					//account = new OrdinaryAccount(scanner.next());
 					gnp = new GenericNumberPanel("Enter the ordinary account number");
 					gnp.setVisible(true);
+					window.setContentPane(gnp);
+					window.revalidate();
 					if (gnp.getFlag()==0)	account = new OrdinaryAccount(gnp.getString());
 					break;
 				case 2:
@@ -44,6 +51,8 @@ public class ATM24H {
 					//account = new SpecialAccount(scanner.next());
 					gnp = new GenericNumberPanel("Enter the special account number");
 					gnp.setVisible(true);
+					window.setContentPane(gnp);
+					window.revalidate();
 					account = new SpecialAccount(gnp.getString());
 					break;
 				case 3:
@@ -51,6 +60,8 @@ public class ATM24H {
 					//account = new SavingsAccount(scanner.next());
 					gnp = new GenericNumberPanel("Enter the savings account number");
 					gnp.setVisible(true);
+					window.setContentPane(gnp);
+					window.revalidate();
 					account = new SavingsAccount(gnp.getString());
 					break;
 				case 4:
@@ -58,11 +69,13 @@ public class ATM24H {
 					//account = new TaxAccount(scanner.next());
 					gnp = new GenericNumberPanel("Enter the Tax account number");
 					gnp.setVisible(true);
+					window.setContentPane(gnp);
+					window.revalidate();
 					account = new TaxAccount(gnp.getString());
 					break;
 
 				default:
-					System.out.println("Invalid option!!!!");
+					System.out.println("I stopped right here, me from tomorrow. CHECKPOINT");
 					break;
 				}
 
@@ -175,7 +188,7 @@ public class ATM24H {
 
 			default:
 				break;
-			}
+			//}
 		}
 	}
 
@@ -196,12 +209,27 @@ public class ATM24H {
 		System.out.println("================================");
 		System.out.println("Enter the desired option: ");
 		return scanner.nextInt();*/
-		
 		Panel panel = new Panel();
 		panel.setVisible(true);
-		if (panel.getFlag() == 1)	panel.setVisible(false);
+		window.setContentPane(panel);
+		window.revalidate();
+
+		while (panel.getFlag() != 1){
+			//waiting
+			System.out.println("");
+		}
+		panel.setVisible(false);
+		window.remove(panel);
 		Panel2 panel2 = new Panel2();
 		panel2.setVisible(true);
+		window.setContentPane(panel2);
+		window.revalidate();
+		
+		while (panel2.getOption() == 10){
+			//waiting
+			System.out.println("");
+		}
+		
 		return panel2.getOption();
 	}
 
@@ -221,5 +249,4 @@ public class ATM24H {
 		panel3.setVisible(true);
 		return panel3.getOption();
 	}
-
 }

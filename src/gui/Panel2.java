@@ -10,7 +10,7 @@ public class Panel2 extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
-	private int option;
+	private int option = 10;
 	private NewAccAction newAccAction;
 	private DoCrdAction doCrdAction;
 	private DoDbtAction doDbtAction;
@@ -79,7 +79,7 @@ public class Panel2 extends JPanel {
 		add(btnEarnBonus);
 		
 		JButton btnExit = new JButton("Exit");
-		btnExit.setBounds(198, 266, 51, 23);
+		btnExit.setBounds(198, 266, 60, 23);
 		btnExit.addActionListener(exitAction);
 		add(btnExit);
 	}
@@ -150,6 +150,6 @@ public class Panel2 extends JPanel {
 	
 	public int getOption()
 	{
-		return this.option;
+		return option;
 	}
 }
