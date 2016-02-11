@@ -30,4 +30,8 @@ public abstract class AbstractAccount {
 	public double getBalance() {
 		return balance;
 	}
+	
+	public void setBalance(double d){
+		balance = d;
+	}
 }

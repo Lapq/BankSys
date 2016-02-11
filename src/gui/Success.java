@@ -29,7 +29,8 @@ public class Success extends JPanel {
 		add(lblOperationWasSuccessful);
 		
 		JLabel lblDoYouWish = new JLabel("Do you wish to do another operation?");
-		lblDoYouWish.setBounds(130, 132, 190, 19);
+		lblDoYouWish.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDoYouWish.setBounds(88, 132, 271, 19);
 		add(lblDoYouWish);
 		
 		JButton btnYes = new JButton("Yes");

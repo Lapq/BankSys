@@ -186,5 +186,4 @@ public class Persistence implements IAccountRepository {
 		}
 		return null;
 	}
-
 }

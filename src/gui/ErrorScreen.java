@@ -25,15 +25,23 @@ public class ErrorScreen extends JPanel {
 		lblError.setHorizontalAlignment(SwingConstants.CENTER);
 		lblError.setBounds(139, 11, 155, 29);
 		add(lblError);
+
+		int count = msg.indexOf(' ', 60);
 		
-		JLabel description = new JLabel(msg);
-		description.setBounds(10, 80, 430, 104);
+		JLabel description = new JLabel(msg.substring(0, count));
+		description.setBounds(10, 82, 430, 29);
 		add(description);
 		
 		JButton btnOk = new JButton("OK");
 		btnOk.setBounds(178, 223, 89, 23);
 		btnOk.addActionListener(okaction);
 		add(btnOk);
+		
+		String msg2 = "";
+		if (msg.length()>=20)	msg2 = msg.substring(count);
+		JLabel description2 = new JLabel(msg2);
+		description2.setBounds(10, 137, 430, 29);
+		add(description2);
 	}
 	
 	private class OkAction implements ActionListener{
