@@ -29,6 +29,11 @@ public class GoodBye extends JPanel {
 		btnClose.setBounds(180, 164, 89, 23);
 		btnClose.addActionListener(closeaction);
 		add(btnClose);
+		
+		JLabel lblByLamartineAntonio = new JLabel("by Lamartine Antonio P. de Queiroga");
+		lblByLamartineAntonio.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblByLamartineAntonio.setBounds(215, 275, 214, 14);
+		add(lblByLamartineAntonio);
 
 	}
 	
