@@ -1,6 +1,7 @@
 package banksys.atm;
 
 import java.util.Scanner;
+import javax.swing.JPanel;
 
 import banksys.account.AbstractAccount;
 import banksys.account.OrdinaryAccount;
@@ -18,177 +19,296 @@ import gui.OriginDestination;
 import gui.Success;
 import gui.ShowBalance;
 import gui.GoodBye;
+import gui.ErrorScreen;
 import gui.SystemWindow;
 
 public class ATM24H {
 
 	private static Scanner scanner = new Scanner(System.in);
 	private static SystemWindow window;
+	private static boolean loop = true;
+	private static ErrorScreen erscrn;
+	private static GenericNumberPanel gnp;
+	private static Success success;
+	private static ShowBalance showbalance;
+	private static GoodBye goodbye;
+	private static OriginDestination origdest;
 	
 	public static void main(String[] args) {
-		BankController bank = new BankController(new AccountVector());
-		GenericNumberPanel gnp;
 		window = new SystemWindow();
 		window.setVisible(true);
-
-		boolean loop = true;
-		//while (loop) {
-			switch (mainMenu()) {
+		while (loop)
+		{
+			looper();
+		}
+	}
+	
+	public static void looper()
+	{
+		BankController bank = new BankController(new AccountVector());
+		switch (mainMenu()) {
+		case 1:
+			AbstractAccount account = null;
+			switch (addAccountMenu()) {
 			case 1:
-				AbstractAccount account = null;
-				switch (addAccountMenu()) {
-				case 1:
-					//System.out.println("Enter the ordinary account number: ");
-					//account = new OrdinaryAccount(scanner.next());
-					gnp = new GenericNumberPanel("Enter the ordinary account number");
-					gnp.setVisible(true);
-					window.setContentPane(gnp);
-					window.revalidate();
-					if (gnp.getFlag()==0)	account = new OrdinaryAccount(gnp.getString());
-					break;
-				case 2:
-					//System.out.println("Enter the special account number: ");
-					//account = new SpecialAccount(scanner.next());
-					gnp = new GenericNumberPanel("Enter the special account number");
-					gnp.setVisible(true);
-					window.setContentPane(gnp);
-					window.revalidate();
-					account = new SpecialAccount(gnp.getString());
-					break;
-				case 3:
-					//System.out.println("Enter the saving account number: ");
-					//account = new SavingsAccount(scanner.next());
-					gnp = new GenericNumberPanel("Enter the savings account number");
-					gnp.setVisible(true);
-					window.setContentPane(gnp);
-					window.revalidate();
-					account = new SavingsAccount(gnp.getString());
-					break;
-				case 4:
-					//System.out.println("Enter the tax account number: ");
-					//account = new TaxAccount(scanner.next());
-					gnp = new GenericNumberPanel("Enter the Tax account number");
-					gnp.setVisible(true);
-					window.setContentPane(gnp);
-					window.revalidate();
-					account = new TaxAccount(gnp.getString());
-					break;
-
-				default:
-					System.out.println("I stopped right here, me from tomorrow. CHECKPOINT");
-					break;
-				}
-
-				if (account != null) {
-					try {
-						bank.addAccount(account);
-						System.out.println("Operation was successful!");
-					} catch (BankTransactionException bte) {
-						System.out.println("Error: " + bte.getMessage());
-					}
-				}
-
+				//System.out.println("Enter the ordinary account number: ");
+				//account = new OrdinaryAccount(scanner.next());
+				gnp = new GenericNumberPanel("Enter the ordinary account number");
+				ShowPanel(gnp);
+				while (gnp.getFlag() == 10) {System.out.println("");/*waiting*/}
+				if (gnp.getFlag() == 0)	account = new OrdinaryAccount(gnp.getString());
+				else if (gnp.getFlag() == 1)	return;
 				break;
 			case 2:
-				System.out.println("Enter the account number: ");
-				String number = scanner.next();
-				System.out.println("Enter the amount to be credited: ");
-				double amount = scanner.nextDouble();
-				try {
-					bank.doCredit(number, amount);
-					System.out.println("Operation was successful!");
-				} catch (BankTransactionException bte) {
-					System.out.println("Error: " + bte.getMessage());
-				}
-
+				//System.out.println("Enter the special account number: ");
+				//account = new SpecialAccount(scanner.next());
+				gnp = new GenericNumberPanel("Enter the special account number");
+				ShowPanel(gnp);
+				while (gnp.getFlag() == 10) {System.out.println("");/*waiting*/}
+				if (gnp.getFlag() == 0)	account = new SpecialAccount(gnp.getString());
+				else if (gnp.getFlag() == 1)	return;
 				break;
 			case 3:
-				System.out.println("Enter the account number: ");
-				number = scanner.next();
-				System.out.println("Enter the amount to be debited: ");
-				amount = scanner.nextDouble();
-				try {
-					bank.doDebit(number, amount);
-					System.out.println("Operation was successful!");
-				} catch (BankTransactionException bte) {
-					System.out.println("Error: " + bte.getMessage());
-				}
-
+				//System.out.println("Enter the saving account number: ");
+				//account = new SavingsAccount(scanner.next());
+				gnp = new GenericNumberPanel("Enter the savings account number");
+				ShowPanel(gnp);
+				while (gnp.getFlag() == 10) {System.out.println("");/*waiting*/}
+				if (gnp.getFlag() == 0)	account = new SavingsAccount(gnp.getString());
+				else if (gnp.getFlag() == 1)	return;
 				break;
 			case 4:
-				System.out.println("Enter the origin account number: ");
-				String fromNumber = scanner.next();
-				System.out.println("Enter the destination account number: ");
-				String toNumber = scanner.next();
-				System.out.println("Enter the amount to be transferred: ");
-				amount = scanner.nextDouble();
-
-				try {
-					bank.doTransfer(fromNumber, toNumber, amount);
-					System.out.println("Operation was successful!");
-				} catch (BankTransactionException bte) {
-					System.out.println("Error: " + bte.getMessage());
-				}
-
-				break;
-			case 5:
-				System.out.println("Enter the account number: ");
-				number = scanner.next();
-				try {
-					System.out.println("OrdinaryAccount number: " + number);
-					System.out.println("Balance: " + bank.getBalance(number));
-				} catch (BankTransactionException bte) {
-					System.out.println("Error: " + bte.getMessage());
-				}
-				break;
-			case 6:
-				System.out.println("Enter the account number: ");
-				number = scanner.next();
-				try {
-					bank.removeAccount(number);
-					System.out.println("Operation was successful!");
-				} catch (BankTransactionException bte) {
-					System.out.println("Error: " + bte.getMessage());
-				}
-				break;
-			case 7:
-				System.out.println("Enter the account number: ");
-				number = scanner.next();
-				try {
-					bank.doEarnInterest(number);
-					System.out.println("Operation was successful!");
-				} catch (BankTransactionException bte) {
-					System.out.println("Error: " + bte.getMessage());
-				}
-
-				break;
-			case 8:
-				System.out.println("Enter the account number: ");
-				number = scanner.next();
-				try {
-					bank.doEarnBonus(number);
-					System.out.println("Operation was successful!");
-				} catch (BankTransactionException bte) {
-					System.out.println("Error: " + bte.getMessage());
-				}
-				break;
-
-			case 9:
-				//System.out.print("Goodbye and have a nice day!!!");
-				GoodBye goodbye = new GoodBye();
-				goodbye.setVisible(true);
-				try {
-					goodbye.wait(10);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				goodbye.setVisible(false);
-				loop = false;
+				//System.out.println("Enter the tax account number: ");
+				//account = new TaxAccount(scanner.next());
+				gnp = new GenericNumberPanel("Enter the Tax account number");
+				ShowPanel(gnp);
+				while (gnp.getFlag() == 10) {System.out.println("");/*waiting*/}
+				if (gnp.getFlag() == 0)	account = new TaxAccount(gnp.getString());
+				else if (gnp.getFlag() == 1)	return;
 				break;
 
 			default:
+				System.out.println("Invalid option!");
 				break;
-			//}
+			}
+
+			if (account != null) {
+				try {
+					bank.addAccount(account);
+					success = new Success();
+					ShowPanel(success);
+					if (success.getFlag() == 1){
+						loop = false;
+					}
+					//System.out.println("Operation was successful!");
+				} catch (BankTransactionException bte) {
+					//System.out.println("Error: " + bte.getMessage());
+					ShowError(bte.getMessage());
+				}
+			}
+
+			break;
+		case 2:
+			gnp = new GenericNumberPanel("Enter the account number");
+			ShowPanel(gnp);
+			while (gnp.getFlag() == 10) {System.out.println(""); /*waiting*/}
+			String number = gnp.getString();
+
+			gnp = new GenericNumberPanel("Enter the amount to be credited");
+			ShowPanel(gnp);
+			while (gnp.getFlag() == 10) {System.out.println(""); /*waiting*/}
+			double amount = Double.parseDouble(gnp.getString());
+
+			try {
+				bank.doCredit(number, amount);
+				success = new Success();
+				ShowPanel(success);
+				
+				while (success.getFlag() == 10) {System.out.println("");/*waiting*/}
+				if (success.getFlag() == 1){
+					loop = false;
+				}
+				//System.out.println("Operation was successful!");
+			}
+			catch (BankTransactionException bte) {
+				//System.out.println("Error: " + bte.getMessage());
+				ShowError(bte.getMessage());
+			}
+
+			break;
+		case 3:
+			//System.out.println("Enter the account number: ");
+			//number = scanner.next();
+			//System.out.println("Enter the amount to be debited: ");
+			//amount = scanner.nextDouble();
+			
+			gnp = new GenericNumberPanel("Enter the account number");
+			ShowPanel(gnp);
+			while (gnp.getFlag() == 10) {System.out.println(""); /*waiting*/}
+			number = gnp.getString();
+
+			gnp = new GenericNumberPanel("Enter the amount to be debited");
+			ShowPanel(gnp);
+			while (gnp.getFlag() == 10) {System.out.println(""); /*waiting*/}
+			amount = Double.parseDouble(gnp.getString());
+			
+			try {
+				bank.doDebit(number, amount);
+				success = new Success();
+				ShowPanel(success);
+				
+				while (success.getFlag() == 10) {System.out.println("");/*waiting*/}
+				if (success.getFlag() == 1){
+					loop = false;
+				}
+				//System.out.println("Operation was successful!");
+			} catch (BankTransactionException bte) {
+				//System.out.println("Error: " + bte.getMessage());
+				ShowError(bte.getMessage());
+			}
+
+			break;
+		case 4:
+			//System.out.println("Enter the origin account number: ");
+			//String fromNumber = scanner.next();
+			//System.out.println("Enter the destination account number: ");
+			//String toNumber = scanner.next();
+			//System.out.println("Enter the amount to be transferred: ");
+			//amount = scanner.nextDouble();
+			
+			gnp = new GenericNumberPanel("Enter the origin account number");
+			ShowPanel(gnp);
+			while (gnp.getFlag() == 10) {System.out.println(""); /*waiting*/}
+			String fromnumber = gnp.getString();
+			
+			gnp = new GenericNumberPanel("Enter the destination account number");
+			ShowPanel(gnp);
+			while (gnp.getFlag() == 10) {System.out.println(""); /*waiting*/}
+			String tonumber = gnp.getString();
+			
+			gnp = new GenericNumberPanel("Enter the amount to be transferred");
+			ShowPanel(gnp);
+			while (gnp.getFlag() == 10) {System.out.println(""); /*waiting*/}
+			amount = Double.parseDouble(gnp.getString());
+			
+			try {
+				bank.doTransfer(fromnumber, tonumber, amount);
+				success = new Success();
+				ShowPanel(success);
+				
+				while (success.getFlag() == 10) {System.out.println("");/*waiting*/}
+				if (success.getFlag() == 1){
+					loop = false;
+				}
+				//System.out.println("Operation was successful!");
+			} catch (BankTransactionException bte) {
+				//System.out.println("Error: " + bte.getMessage());
+				ShowError(bte.getMessage());
+			}
+
+			break;
+		case 5:
+			//System.out.println("Enter the account number: ");
+			//number = scanner.next();
+			gnp = new GenericNumberPanel("Enter the account number");
+			ShowPanel(gnp);
+			while (gnp.getFlag() == 10) {System.out.println(""); /*waiting*/}
+			number = gnp.getString();
+			
+			try {
+				//System.out.println("OrdinaryAccount number: " + number);
+				//System.out.println("Balance: " + bank.getBalance(number));
+				showbalance = new ShowBalance (number, Double.toString(bank.getBalance(number)));
+				ShowPanel(showbalance);
+				while (showbalance.getFlag() == 10) {System.out.println("");/*waiting*/}
+			} catch (BankTransactionException bte) {
+				//System.out.println("Error: " + bte.getMessage());
+				ShowError(bte.getMessage());
+			}
+			break;
+		case 6:
+			//System.out.println("Enter the account number: ");
+			//number = scanner.next();
+			gnp = new GenericNumberPanel("Enter the account number");
+			ShowPanel(gnp);
+			while (gnp.getFlag() == 10) {System.out.println(""); /*waiting*/}
+			number = gnp.getString();
+			
+			try {
+				bank.removeAccount(number);
+				success = new Success();
+				ShowPanel(success);
+				
+				while (success.getFlag() == 10) {System.out.println("");/*waiting*/}
+				if (success.getFlag() == 1){
+					loop = false;
+				}
+				//System.out.println("Operation was successful!");
+			} catch (BankTransactionException bte) {
+				//System.out.println("Error: " + bte.getMessage());
+				ShowError(bte.getMessage());
+			}
+			break;
+		case 7:
+			//System.out.println("Enter the account number: ");
+			//number = scanner.next();
+			gnp = new GenericNumberPanel("Enter the account number");
+			ShowPanel(gnp);
+			while (gnp.getFlag() == 10) {System.out.println(""); /*waiting*/}
+			number = gnp.getString();
+			try {
+				bank.doEarnInterest(number);
+				success = new Success();
+				ShowPanel(success);
+				
+				while (success.getFlag() == 10) {System.out.println("");/*waiting*/}
+				if (success.getFlag() == 1){
+					loop = false;
+				}
+				//System.out.println("Operation was successful!");
+			} catch (BankTransactionException bte) {
+				//System.out.println("Error: " + bte.getMessage());
+				ShowError(bte.getMessage());
+			}
+
+			break;
+		case 8:
+			//System.out.println("Enter the account number: ");
+			//number = scanner.next();
+			gnp = new GenericNumberPanel("Enter the account number");
+			ShowPanel(gnp);
+			while (gnp.getFlag() == 10) {System.out.println(""); /*waiting*/}
+			number = gnp.getString();
+			try {
+				bank.doEarnBonus(number);
+				success = new Success();
+				ShowPanel(success);
+				
+				while (success.getFlag() == 10) {System.out.println("");/*waiting*/}
+				if (success.getFlag() == 1){
+					loop = false;
+				}
+				//System.out.println("Operation was successful!");
+			} catch (BankTransactionException bte) {
+				//System.out.println("Error: " + bte.getMessage());
+				ShowError(bte.getMessage());
+			}
+			break;
+
+		case 9:
+			//System.out.print("Goodbye and have a nice day!!!");
+			loop = false;
+			goodbye = new GoodBye();
+			goodbye.setVisible(true);
+			window.setContentPane(goodbye);
+			window.revalidate();
+			while (goodbye.getFlag() == 0) {System.out.println("");}
+			window.setEnabled(false);
+			window.dispose();
+			break;
+
+		default:
+			break;
 		}
 	}
 
@@ -247,6 +367,27 @@ public class ATM24H {
 		
 		Panel3 panel3 = new Panel3();
 		panel3.setVisible(true);
+		window.setContentPane(panel3);
+		window.revalidate();
+		while (panel3.getOption() == 10)
+		{
+			//waiting
+			System.out.println("");
+		}
 		return panel3.getOption();
+	}
+	
+	private static void ShowPanel(JPanel panel){
+		panel.setVisible(true);
+		window.setContentPane(panel);
+		window.revalidate();
+	}
+		
+	private static void ShowError(String msg){
+		erscrn = new ErrorScreen(msg);
+		erscrn.setVisible(true);
+		window.setContentPane(erscrn);
+		window.revalidate();
+		while (erscrn.getFlag() == 10) {System.out.println("");/*waiting*/}
 	}
 }

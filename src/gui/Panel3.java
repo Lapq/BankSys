@@ -10,7 +10,7 @@ public class Panel3 extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
-	private int option;
+	private int option = 10;
 	private OrdinaryAction ordinaryAction;
 	private SpecialAction specialAction;
 	private SavingsAction savingsAction;
@@ -30,8 +30,8 @@ public class Panel3 extends JPanel {
 		
 		setLayout(null);
 		
-		JLabel lblAddNewOrdinaryaccount = new JLabel("Add New OrdinaryAccount");
-		lblAddNewOrdinaryaccount.setBounds(161, 5, 127, 14);
+		JLabel lblAddNewOrdinaryaccount = new JLabel("Add New Account");
+		lblAddNewOrdinaryaccount.setBounds(157, 11, 127, 14);
 		add(lblAddNewOrdinaryaccount);
 		
 		JButton btnOrdinary = new JButton("Ordinary");

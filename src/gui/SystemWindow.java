@@ -15,7 +15,7 @@ public class SystemWindow extends JFrame {
 		contentPane = new JPanel();
 		setTitle("Automated Teller Machine");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 400);
+		setBounds(100, 100, 450, 350);
 		this.setContentPane(contentPane);
 		this.setResizable(false);
 	}

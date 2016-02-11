@@ -14,83 +14,117 @@ public class GenericNumberPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
-	private int flag;
+	private int flag = 10;
+	private OneAction oneaction;
+	private TwoAction twoaction;
+	private ThreeAction threeaction;
+	private FourAction fouraction;
+	private FiveAction fiveaction;
+	private SixAction sixaction;
+	private SevenAction sevenaction;
+	private EightAction eightaction;
+	private NineAction nineaction;
+	private ZeroAction zeroaction;
+	private OKAction okaction;
+	private BackAction backaction;
+	private CancelAction cancelaction;
 
 	/**
 	 * Create the panel.
 	 */
 	public GenericNumberPanel(String lbl) {
+		
+		oneaction = new OneAction();
+		twoaction = new TwoAction();
+		threeaction = new ThreeAction();
+		fouraction = new FourAction();
+		fiveaction = new FiveAction();
+		sixaction = new SixAction();
+		sevenaction = new SevenAction();
+		eightaction = new EightAction();
+		nineaction = new NineAction();
+		zeroaction = new ZeroAction();
+		okaction = new OKAction();
+		backaction = new BackAction();
+		cancelaction = new CancelAction();
+
 		setLayout(null);
 		
-		flag = 0;
 		JLabel label = new JLabel(lbl);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(137, 11, 177, 14);
+		label.setBounds(50, 11, 345, 14);
 		add(label);
 		
 		textField = new JTextField();
 		textField.setColumns(10);
-		textField.setBounds(137, 36, 177, 20);
+		textField.setBounds(117, 36, 207, 20);
 		add(textField);
 		
 		JButton buttonOK = new JButton("OK");
-		buttonOK.setBounds(256, 211, 54, 23);
+		buttonOK.setBounds(270, 211, 54, 23);
+		buttonOK.addActionListener(okaction);
 		add(buttonOK);
 		
 		JButton buttonCancel = new JButton("Cancel");
 		buttonCancel.setBounds(178, 255, 89, 23);
+		buttonCancel.addActionListener(cancelaction);
 		add(buttonCancel);
 		
 		JButton buttonBack = new JButton("<-");
-		buttonBack.setBounds(137, 211, 58, 23);
+		buttonBack.setBounds(117, 211, 53, 23);
+		buttonBack.addActionListener(backaction);
 		add(buttonBack);
 		
 		JButton button_1 = new JButton("1");
-		button_1.setBounds(137, 84, 39, 23);
+		button_1.setBounds(117, 84, 53, 23);
+		button_1.addActionListener(oneaction);
 		add(button_1);
 		
 		JButton button_2 = new JButton("2");
-		button_2.setBounds(205, 84, 39, 23);
+		button_2.setBounds(193, 84, 51, 23);
+		button_2.addActionListener(twoaction);
 		add(button_2);
 		
 		JButton button_3 = new JButton("3");
-		button_3.setBounds(271, 84, 39, 23);
+		button_3.setBounds(270, 84, 54, 23);
+		button_3.addActionListener(threeaction);
 		add(button_3);
 		
 		JButton button_4 = new JButton("4");
-		button_4.setBounds(137, 128, 39, 23);
+		button_4.setBounds(117, 128, 53, 23);
+		button_4.addActionListener(fouraction);
 		add(button_4);
 		
 		JButton button_5 = new JButton("5");
-		button_5.setBounds(205, 128, 39, 23);
+		button_5.setBounds(193, 128, 51, 23);
+		button_5.addActionListener(fiveaction);
 		add(button_5);
 		
 		JButton button_6 = new JButton("6");
-		button_6.setBounds(271, 128, 39, 23);
+		button_6.setBounds(270, 128, 54, 23);
+		button_6.addActionListener(sixaction);
 		add(button_6);
 		
 		JButton button_7 = new JButton("7");
-		button_7.setBounds(137, 171, 39, 23);
+		button_7.setBounds(117, 171, 53, 23);
+		button_7.addActionListener(sevenaction);
 		add(button_7);
 		
 		JButton button_8 = new JButton("8");
-		button_8.setBounds(205, 171, 39, 23);
+		button_8.setBounds(193, 171, 51, 23);
+		button_8.addActionListener(eightaction);
 		add(button_8);
 		
 		JButton button_9 = new JButton("9");
-		button_9.setBounds(271, 171, 39, 23);
+		button_9.setBounds(270, 171, 54, 23);
+		button_9.addActionListener(nineaction);
 		add(button_9);
 		
 		JButton button_0 = new JButton("0");
-		button_0.setBounds(205, 211, 39, 23);
+		button_0.setBounds(193, 211, 51, 23);
+		button_0.addActionListener(zeroaction);
 		add(button_0);
 
-	}
-	
-	public String getString(){
-		
-		return this.textField.getText();
-		
 	}
 	
 	private class OneAction implements ActionListener {
@@ -188,7 +222,8 @@ public class GenericNumberPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			return; //might be useless
+			flag = 0;
+			System.out.println("pressed");
 		}
 	}
 	private class BackAction implements ActionListener {
@@ -197,13 +232,12 @@ public class GenericNumberPanel extends JPanel {
 		public void actionPerformed(ActionEvent e)
 		{
 			String s = textField.getText();
-			new StringBuilder(s).reverse().toString();
-			s = s.substring(1);
-			new StringBuilder(s).reverse().toString();
+
+			s = s.substring(0, s.length()-1);
+			
 			textField.setText(s);
 		}
 	}
-	
 	private class CancelAction implements ActionListener {
 		
 		@Override
@@ -216,5 +250,9 @@ public class GenericNumberPanel extends JPanel {
 	public int getFlag(){
 		return flag;
 	}
-	
+	public String getString(){
+		
+		return textField.getText();
+		
+	}
 }

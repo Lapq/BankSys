@@ -12,10 +12,12 @@ import banksys.persistence.exception.AccountCreationException;
 import banksys.persistence.exception.AccountDeletionException;
 import banksys.persistence.exception.AccountNotFoundException;
 
+import java.util.Scanner;
 public class BankController {
 
 	private IAccountRepository repository;
-
+	private Scanner scanner;
+	
 	public BankController(IAccountRepository repository) {
 		this.repository = repository;
 	}
@@ -38,6 +40,7 @@ public class BankController {
 
 	public void doCredit(String number, double amount) throws BankTransactionException {
 		AbstractAccount account;
+		
 		try {
 			account = this.repository.retrieve(number);
 		} catch (AccountNotFoundException anfe) {

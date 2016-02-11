@@ -4,40 +4,57 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ShowBalance extends JPanel {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Create the panel.
-	 */
-	public ShowBalance() {
+	private int flag = 10;
+	private OkAction okaction;
+
+	public ShowBalance(String s1, String s2) {
+		okaction = new OkAction();
 		setLayout(null);
 		
-		JLabel lblOrdinaryAccountNumber = new JLabel("Account number:");
-		lblOrdinaryAccountNumber.setHorizontalAlignment(SwingConstants.LEFT);
-		lblOrdinaryAccountNumber.setBounds(25, 58, 158, 19);
-		add(lblOrdinaryAccountNumber);
+		JLabel lblAccountNumber = new JLabel("Account number:");
+		lblAccountNumber.setHorizontalAlignment(SwingConstants.LEFT);
+		lblAccountNumber.setBounds(25, 58, 158, 19);
+		add(lblAccountNumber);
 		
 		JLabel lblBalance = new JLabel("Balance:");
 		lblBalance.setHorizontalAlignment(SwingConstants.LEFT);
 		lblBalance.setBounds(25, 137, 158, 19);
 		add(lblBalance);
 		
-		JLabel label = new JLabel("");
-		label.setFont(new Font("Tahoma", Font.BOLD, 11));
-		label.setBounds(25, 92, 149, 19);
-		add(label);
+		JLabel number = new JLabel(s1);
+		number.setFont(new Font("Tahoma", Font.BOLD, 11));
+		number.setBounds(25, 92, 149, 19);
+		add(number);
 		
-		JLabel label_1 = new JLabel("");
-		label_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		label_1.setBounds(25, 188, 149, 19);
-		add(label_1);
+		JLabel balance = new JLabel(s2);
+		balance.setFont(new Font("Tahoma", Font.BOLD, 11));
+		balance.setBounds(25, 188, 149, 19);
+		add(balance);
+		
+		JButton btnOk = new JButton("OK");
+		btnOk.setBounds(169, 242, 89, 23);
+		btnOk.addActionListener(okaction);
+		add(btnOk);
 
+	}
+	
+	private class OkAction implements ActionListener{
+		
+		@Override
+		public void actionPerformed (ActionEvent e){
+			flag = 1;
+		}
+	}
+	
+	public int getFlag(){
+		return flag;
 	}
 
 }

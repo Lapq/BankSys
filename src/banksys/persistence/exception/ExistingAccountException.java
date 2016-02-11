@@ -7,7 +7,7 @@ public class ExistingAccountException extends Exception {
 	private String number;
 
 	public ExistingAccountException(String number) {
-		super("Existing OrdinaryAccount!");
+		super("Existing Account!");
 		this.number = number;
 	}
 
