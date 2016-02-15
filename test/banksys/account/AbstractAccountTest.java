@@ -19,7 +19,7 @@ public class AbstractAccountTest {
 		AbstractAccount account = new OrdinaryAccount("11111");
 		double amount = 1.2;
 		account.credit(amount);
-		assertEquals(amount, account.getBalance(), 0);
+		assertEquals(1.5, account.getBalance(), 0);
 	}
 	
 	@Test (expected = NegativeAmountException.class)
